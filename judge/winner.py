@@ -33,7 +33,7 @@ def winner(community_cards: CommunityCards, players: List[PlayerCards]) -> List[
         if len(applied_players) == 0:
             continue
         elif len(applied_players) == 1:
-            return applied_players[0]
+            return applied_players
         else:
             kickers = list(map(lambda applied: applied[1].primaries + applied[1].kickers, applied_players))
 

@@ -29,14 +29,18 @@ class HarmonyMode:
         assert len(value) <= 5
         self._kicker = value
 
+    @property
+    def name(self):
+        return self.__class__.__name__
+
     def __str__(self):
         if self.primaries:
             if self.kickers:
-                return f"{self.__class__.__name__} ({self.primaries}) kick: ({self.kickers})"
+                return f"{self.name} ({self.primaries}) kick: ({self.kickers})"
             else:
-                return f"{self.__class__.__name__} ({self.primaries})"
+                return f"{self.name} ({self.primaries})"
         else:
-            return f"{self.__class__.__name__}"
+            return f"{self.name}"
 
     def __repr__(self):
         return self.__str__()
