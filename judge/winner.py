@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Tuple, Iterable
 
 from deck import sort_values
 from harmony import RoyalFlush, StraightFlush, FourOfAKind, FullHouse, Flush, Straight, ThreeOfAKind, TwoPairs, \
@@ -7,12 +7,12 @@ from .game import CommunityCards, PlayerCards
 from .kicker import kicker_resolution
 
 
-def winner(community_cards: CommunityCards, players: List[PlayerCards]) -> List[Tuple[PlayerCards, HarmonyMode]]:
+def winner(community_cards: Iterable, players: List[PlayerCards]) -> List[Tuple[PlayerCards, HarmonyMode]]:
     combs = []
 
     for p in players:
         combs.append(
-            (p, list(sort_values((*community_cards.cards, *p.cards)))),
+            (p, list(sort_values((*community_cards, *p.cards)))),
         )
 
     for harmony_cls in (RoyalFlush, StraightFlush, FourOfAKind, FullHouse, Flush, Straight,

@@ -28,4 +28,7 @@ def kicker_resolution(all_kickers: List[List[str]]) -> List[int]:
         if all(k):
             results.append(idx)
 
+    if len(results) == 0:
+        return list(range(len(kk)))
+
     return results

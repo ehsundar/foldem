@@ -46,6 +46,17 @@ class TestWinner(TestCase):
                 [0],
                 TwoPairs,
             ),
+            TestWinner.TestData(
+                [
+                    ("4S", "2S"),
+                    ("4C", "2H"),
+                ],
+                (
+                    "4D", "JH", "AS", "TS", "2C",
+                ),
+                [0, 1],
+                TwoPairs,
+            ),
         )
 
         for c in cases:
@@ -66,7 +77,7 @@ class TestWinner(TestCase):
         for c in data.community:
             community_cards.append((c[0], c[1]))
 
-        w = winner(CommunityCards(*community_cards), players)
+        w = winner(community_cards, players)
 
         self.assertEqual(len(data.expected_winners), len(w))
 
