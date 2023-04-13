@@ -5,6 +5,8 @@ from .harmony import HarmonyMode
 class StraightFlush(HarmonyMode):
     def applies(self) -> bool:
         st = straight(self.cards)
+        if not st:
+            return False
 
         _, suit_map = mappings(self.cards)
         suit_values = suit_map[st[1]]
