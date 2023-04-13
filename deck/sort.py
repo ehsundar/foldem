@@ -6,9 +6,15 @@ from .cards import values
 
 def sort_values(crds: Iterable) -> Iterable[str]:
     def cmp(n1, n2):
-        if values.index(n1[0]) < values.index(n2[0]):
+        val1 = n1
+        val2 = n2
+        if isinstance(n1, tuple):
+            val1 = n1[0]
+            val2 = n2[0]
+
+        if values.index(val1) < values.index(val2):
             return -1
-        elif values.index(n1[0]) > values.index(n2[0]):
+        elif values.index(val1) > values.index(val2):
             return 1
         else:
             return 0

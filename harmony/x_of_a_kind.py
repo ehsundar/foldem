@@ -7,12 +7,10 @@ class FourOfAKind(HarmonyMode):
         value_map, _ = mappings(self.cards)
         for value, suits in value_map.items():
             if len(suits) == 4:
+                self.primaries = [value]
                 return True
 
         return False
-
-    def __str__(self):
-        return f"four of a kind"
 
 
 class ThreeOfAKind(HarmonyMode):
@@ -20,9 +18,7 @@ class ThreeOfAKind(HarmonyMode):
         value_map, _ = mappings(self.cards)
         for value, suits in value_map.items():
             if len(suits) == 3:
+                self.primaries = [value]
                 return True
 
         return False
-
-    def __str__(self):
-        return f"three of a kind"

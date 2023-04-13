@@ -13,20 +13,12 @@ class StraightFlush(HarmonyMode):
             if values[values.index(st[0]) - i] not in suit_values:
                 return False
 
+        self.primaries = [st[0]]
         return True
-
-    def highest(self):
-        return straight(self.cards)
-
-    def __str__(self):
-        return f"straight flush"
 
 
 class RoyalFlush(StraightFlush):
     def applies(self) -> bool:
         if super().applies():
-            return super().highest()[0] == "A"
+            return self.primaries[0] == "A"
         return False
-
-    def __str__(self):
-        return f"royal flush"

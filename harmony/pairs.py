@@ -1,45 +1,26 @@
-from typing import List
-
-from deck import cards, mappings
+from deck import mappings, sort_values
 from .harmony import HarmonyMode
 
 
 class OnePair(HarmonyMode):
     def applies(self) -> bool:
-        return len(set(map(lambda c: c[0], self.cards))) != len(list(map(lambda c: c[0], self.cards)))
+        value_map, _ = mappings(self.cards)
 
-    def pair(self) -> str:
-        ns = set()
-        for c in self.cards:
-            if c[0] in ns:
-                return c[0]
-            ns.add(c[0])
+        for value, suits in value_map.items():
+            if len(suits) == 2:
+                self.primaries = [value]
+                break
 
-    def kickers(self) -> List[str]:
-        pair = self.pair()
-        nums = cards.sort_numbers(self.cards)
-        return list(filter(lambda n: n != pair, nums))[:3]
-
-    def __eq__(self, other):
-        if self.pair() != other.pair():
+        if not self.primaries:
             return False
 
-        for i in range(3):
-            if self.kickers()[i] != other.kickers()[i]:
-                return False
+        for c in sort_values(self.cards):
+            if c[0] not in self.primaries:
+                self.kickers.append(c[0])
+                if len(self.kickers) == 3:
+                    break
 
         return True
-
-    def __lt__(self, other):
-        if self.pair() != other.pair():
-            return cards.values.index(self.pair()) < cards.values.index(other.pair())
-
-        for i in range(3):
-            if self.kickers()[i] != other.kickers()[i]:
-                return cards.values.index(self.kickers()[i]) < cards.values.index(other.kickers()[i])
-
-    def __str__(self):
-        return f"one pair of ({self.pair()})s kickers {self.kickers()}"
 
 
 class TwoPairs(HarmonyMode):
@@ -51,7 +32,13 @@ class TwoPairs(HarmonyMode):
             if len(suits) == 2:
                 pairs.append(value)
 
-        return len(pairs) >= 2
+        if len(pairs) < 2:
+            return False
 
-    def __str__(self):
-        return f"two pairs"
+        self.primaries = list(sort_values(pairs))[:2]
+        for c in sort_values(self.cards):
+            if c[0] not in self.primaries:
+                self.kickers.append(c[0])
+                break
+
+        return True

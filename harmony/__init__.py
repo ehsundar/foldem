@@ -6,3 +6,4 @@ from .full_house import FullHouse
 from .flush import Flush
 from .straight import Straight
 from .pairs import OnePair, TwoPairs
+from .high_card import HighCard

@@ -1,15 +1,18 @@
-from deck import mappings
+from deck import mappings, sort_values
 from harmony import HarmonyMode
 
 
 class FullHouse(HarmonyMode):
     def applies(self) -> bool:
         value_map, _ = mappings(self.cards)
-        cardinalities = map(lambda val_list: len(val_list), value_map.values())
-        if 3 in cardinalities and 2 in cardinalities:
-            return True
+        value_count = {}
 
-        return False
+        for value, suits in value_map.items():
+            if len(suits) in (2, 3):
+                value_count[value] = len(suits)
 
-    def __str__(self):
-        return f"full house"
+        if 3 not in value_count.values() or len(value_count) < 2:
+            return False
+
+        self.primaries = list(sort_values(value_count.keys()))[:2]
+        return True
