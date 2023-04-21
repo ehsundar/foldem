@@ -3,6 +3,7 @@ from .harmony import HarmonyMode
 
 
 class StraightFlush(HarmonyMode):
+    CODENAME = "SF"
     def applies(self) -> bool:
         st = straight(self.cards)
         if not st:
@@ -20,6 +21,8 @@ class StraightFlush(HarmonyMode):
 
 
 class RoyalFlush(StraightFlush):
+    CODENAME = "RF"
+
     def applies(self) -> bool:
         if super().applies():
             return self.primaries[0] == "A"

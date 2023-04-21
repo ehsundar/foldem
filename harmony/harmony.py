@@ -1,10 +1,14 @@
 from typing import Collection, List
 
+from deck import sort_values
+
 
 class HarmonyMode:
+    CODENAME: str = ""
+
     def __init__(self, cards: Collection):
         assert len(cards) == 7
-        self.cards = cards
+        self.cards = sort_values(cards)
         self._primary = []
         self._kicker = []
 
@@ -32,6 +36,50 @@ class HarmonyMode:
     @property
     def name(self):
         return self.__class__.__name__
+
+    def serialize(self) -> str:
+        result = "".join(map(lambda c: c[0] + c[1], self.cards))
+        result += f"-{self.CODENAME}/"
+
+        if self.primaries:
+            result += "".join(self.primaries)
+
+        result += "/"
+
+        if self.kickers:
+            result += "".join(self.kickers)
+
+        result += "/"
+
+        assert len(result) <= 30
+
+        return result.ljust(30, " ")
+
+    @classmethod
+    def deserialize(cls, serialized_harmony: str):
+        cards = []
+
+        for i in range(7):
+            cards.append((
+                serialized_harmony[2 * i],
+                serialized_harmony[2 * i + 1],
+            ))
+
+        inst = cls(cards)
+        assert inst.CODENAME == inst.extract_codename(serialized_harmony)
+
+        parts = serialized_harmony[18:].strip().split("/")
+
+        assert len(parts) == 3
+
+        inst.primaries = ['3']
+        inst.kickers = list(parts[1])
+
+        return inst
+
+    @staticmethod
+    def extract_codename(serialized_harmony) -> str:
+        return serialized_harmony[15:17]
 
     def __str__(self):
         if self.primaries:

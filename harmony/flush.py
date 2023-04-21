@@ -5,6 +5,8 @@ from harmony import HarmonyMode
 
 
 class Flush(HarmonyMode):
+    CODENAME = "FL"
+
     def applies(self) -> bool:
         _, suits_map = mappings(self.cards)
         for suit, values in suits_map.items():

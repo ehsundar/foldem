@@ -3,6 +3,8 @@ from harmony import HarmonyMode
 
 
 class FullHouse(HarmonyMode):
+    CODENAME = "FH"
+
     def applies(self) -> bool:
         value_map, _ = mappings(self.cards)
         value_count = {}

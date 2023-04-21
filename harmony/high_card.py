@@ -3,6 +3,8 @@ from harmony import HarmonyMode
 
 
 class HighCard(HarmonyMode):
+    CODENAME = "HC"
+
     def applies(self) -> bool:
         self.primaries = list(map(lambda c: c[0], sort_values(self.cards)))[:5]
         return True

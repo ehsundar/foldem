@@ -3,6 +3,8 @@ from .harmony import HarmonyMode
 
 
 class FourOfAKind(HarmonyMode):
+    CODENAME = "FK"
+
     def applies(self) -> bool:
         value_map, _ = mappings(self.cards)
         for value, suits in value_map.items():
@@ -14,6 +16,8 @@ class FourOfAKind(HarmonyMode):
 
 
 class ThreeOfAKind(HarmonyMode):
+    CODENAME = "TK"
+
     def applies(self) -> bool:
         value_map, _ = mappings(self.cards)
         for value, suits in value_map.items():

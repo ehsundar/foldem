@@ -3,6 +3,8 @@ from .harmony import HarmonyMode
 
 
 class OnePair(HarmonyMode):
+    CODENAME = "OP"
+
     def applies(self) -> bool:
         value_map, _ = mappings(self.cards)
 
@@ -24,6 +26,8 @@ class OnePair(HarmonyMode):
 
 
 class TwoPairs(HarmonyMode):
+    CODENAME = "TP"
+
     def applies(self) -> bool:
         value_map, _ = mappings(self.cards)
 
