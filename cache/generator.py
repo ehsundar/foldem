@@ -1,26 +1,8 @@
 from datetime import datetime
 from itertools import combinations
-from typing import Tuple
 
 from deck import cards
-from harmony import HarmonyMode
 from judge import winner, PlayerCards
-
-
-def serialize_results(all_cards: Tuple, mode: HarmonyMode) -> str:
-    result = ",".join(map(lambda c: c[0] + c[1], all_cards))
-
-    result += "->"
-
-    if mode.primaries and mode.kickers:
-        result += f"{mode.name}/{mode.primaries}/{mode.kickers}"
-    elif mode.primaries:
-        primaries = "".join(mode.primaries)
-        result += f"{mode.name}/{primaries}"
-    else:
-        result += f"{mode.name}"
-
-    return result
 
 
 def generate():

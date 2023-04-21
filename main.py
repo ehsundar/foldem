@@ -1,4 +1,4 @@
-from generator.gen import generate
+from cache.generator import generate
 
 
 def main():
