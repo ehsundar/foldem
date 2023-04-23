@@ -72,7 +72,7 @@ class HarmonyMode:
 
         assert len(parts) == 3
 
-        inst.primaries = ['3']
+        inst.primaries = list(parts[0])
         inst.kickers = list(parts[1])
 
         return inst
